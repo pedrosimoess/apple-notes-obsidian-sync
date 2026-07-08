@@ -70,10 +70,8 @@ Automação).
 
 ## Agendamento (macOS / launchd)
 
-Veja `agendamento/macos/LEIAME.md` pra instalar os `.plist` incluídos:
-um roda o sync a cada 30 minutos, o outro (`watch_obsidian.py`) checa a
-cada 15s e dispara o sync assim que detecta que o Obsidian.app acabou
-de ser aberto.
+Veja `agendamento/macos/LEIAME.md` pra instalar o `.plist` incluído e
+rodar isso automaticamente a cada 30 minutos.
 
 ## Observações
 

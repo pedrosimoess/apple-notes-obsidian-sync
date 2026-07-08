@@ -69,10 +69,8 @@ to control Notes.app (System Settings → Privacy & Security → Automation).
 
 ## Scheduling (macOS / launchd)
 
-See `agendamento/macos/LEIAME.md` for installing the included `.plist`
-files: one runs the sync every 30 minutes, the other (`watch_obsidian.py`)
-polls every 15s and triggers the sync as soon as it detects Obsidian.app
-was just launched.
+See `agendamento/macos/LEIAME.md` for installing the included
+`.plist` to run this automatically every 30 minutes.
 
 ## Notes
 
