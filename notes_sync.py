@@ -61,27 +61,30 @@ on replaceText(theText, searchString, replacementString)
 end replaceText
 
 set folderName to "{folder}"
-set acc to account "{account}"
-set fld to folder folderName of acc
-set noteList to notes of fld
-set totalNotes to count of noteList
 set outLines to {{}}
 
-repeat with i from 1 to totalNotes
-	set n to item i of noteList
-	set noteName to name of n
-	set noteBody to plaintext of n
-	set noteId to (id of n) as string
-	set idSuffix to my replaceText(noteId, "x-coredata://D0091F37-DEF4-407B-99F1-184909AC9F40/ICNote/p", "")
-	set creationStr to (creation date of n) as string
-	set modStr to (modification date of n) as string
+tell application "Notes"
+	set acc to account "{account}"
+	set fld to folder folderName of acc
+	set noteList to notes of fld
+	set totalNotes to count of noteList
 
-	set cleanBody to my replaceText(noteBody, ASCII character 30, " ")
-	set cleanName to my replaceText(noteName, ASCII character 30, " ")
+	repeat with i from 1 to totalNotes
+		set n to item i of noteList
+		set noteName to name of n
+		set noteBody to plaintext of n
+		set noteId to (id of n) as string
+		set idSuffix to my replaceText(noteId, "x-coredata://D0091F37-DEF4-407B-99F1-184909AC9F40/ICNote/p", "")
+		set creationStr to (creation date of n) as string
+		set modStr to (modification date of n) as string
 
-	set recordStr to idSuffix & (ASCII character 31) & cleanName & (ASCII character 31) & creationStr & (ASCII character 31) & modStr & (ASCII character 31) & cleanBody
-	set end of outLines to recordStr
-end repeat
+		set cleanBody to my replaceText(noteBody, ASCII character 30, " ")
+		set cleanName to my replaceText(noteName, ASCII character 30, " ")
+
+		set recordStr to idSuffix & (ASCII character 31) & cleanName & (ASCII character 31) & creationStr & (ASCII character 31) & modStr & (ASCII character 31) & cleanBody
+		set end of outLines to recordStr
+	end repeat
+end tell
 
 set AppleScript's text item delimiters to (ASCII character 30)
 set finalOutput to outLines as string
