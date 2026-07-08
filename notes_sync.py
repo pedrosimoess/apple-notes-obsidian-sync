@@ -120,6 +120,9 @@ def fetch_folder_notes(folder_name):
         if len(parts) != 5:
             continue
         note_id, name, created, modified, body = parts
+        # osascript's stdout adds a trailing newline after the last record's
+        # last field -- strip it so it doesn't leak into the note body.
+        body = body.rstrip("\n\r") if record == raw.split(RS)[-1] else body
         notes.append({
             "id": note_id,
             "name": name,
@@ -146,7 +149,10 @@ set AppleScript's text item delimiters to ""
 return finalOutput
 '''
     raw = run_applescript(script)
-    all_folders = [f for f in raw.split(RS) if f.strip()]
+    # osascript's stdout adds a trailing newline after the last folder name
+    # (but real folder names can have meaningful trailing spaces, like
+    # "Citações ", so only strip \n/\r, not all whitespace).
+    all_folders = [f.rstrip("\n\r") for f in raw.split(RS) if f.strip()]
     return [f for f in all_folders if f not in EXCLUDED_FOLDERS]
 
 
