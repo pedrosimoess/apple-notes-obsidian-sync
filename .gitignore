@@ -6,4 +6,5 @@ venv/
 .venv/
 Logs/*.log
 .sync_state.json
+.obsidian_watch_state
 config.py
